@@ -1,5 +1,8 @@
 streamlit
 ultralytics
-opencv-python==4.11.0
+opencv-python==4.11.0.0
 numpy
 pillow
+rich
+markdown-it-py
+mdurl
