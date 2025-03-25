@@ -1,8 +1,9 @@
 # streamlit_app.py
 import streamlit as st
 import cv2
-from yolo_inference import run_detection
+from yolo_detect import run_detection
 from PIL import Image
+import numpy as np
 
 # Load model + image
 model_path = 'runs/detect/train/weights/best.pt'
