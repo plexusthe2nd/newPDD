@@ -30,4 +30,4 @@ if uploaded_image is not None:
         for c in sorted(set(detected_classes)):
             st.markdown(f"- **{c}**")
     else:
-        st.info("No objects detected.")
+        st.info("No mango detected.")
