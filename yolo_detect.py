@@ -27,9 +27,12 @@ def run_detection(model_path, source_path, threshold=0.5, resolution=None, max_f
     # Parse resolution
     if resolution:
         resW, resH = map(int, resolution.lower().split('x'))
-        resize = True
+        resize = True 
     else:
+        resW, resH = 640, 480  # default resolution
         resize = False
+        
+
 
     # Determine source type
     if os.path.isdir(source_path):
