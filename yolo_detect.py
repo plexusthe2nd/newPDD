@@ -109,11 +109,6 @@ elif source_type == 'video' or source_type == 'usb':
         ret = cap.set(3, resW)
         ret = cap.set(4, resH)
 
-elif source_type == 'picamera':
-    from picamera2 import Picamera2
-    cap = Picamera2()
-    cap.configure(cap.create_video_configuration(main={"format": 'RGB888', "size": (resW, resH)}))
-    cap.start()
 
 # Set bounding box colors (using the Tableu 10 color scheme)
 bbox_colors = [(164,120,87), (68,148,228), (93,97,209), (178,182,133), (88,159,106), 
