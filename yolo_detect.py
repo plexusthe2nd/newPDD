@@ -25,7 +25,9 @@ def run_detection(model_path, source_path, threshold=0.5, resolution=None, max_f
         resW, resH = map(int, resolution.lower().split('x'))
         resize = True
     else:
+        resW, resH = None, None  # Provide fallback values
         resize = False
+
 
     if os.path.isdir(source_path):
         source_type = 'folder'
