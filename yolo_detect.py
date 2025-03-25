@@ -1,5 +1,3 @@
-# yolo_inference.py
-
 import os
 import sys
 import glob
@@ -15,26 +13,20 @@ bbox_colors = [(164,120,87), (68,148,228), (93,97,209), (178,182,133), (88,159,1
 def run_detection(model_path, source_path, threshold=0.5, resolution=None, max_frames=None):
     """
     Run YOLOv8 object detection on image, video, or webcam source.
-    Returns list of processed frames (with boxes drawn).
+    Returns list of tuples: (processed_frame, detected_classes)
     """
-    # Load model
     if not os.path.exists(model_path):
         raise FileNotFoundError(f'Model not found at: {model_path}')
     
     model = YOLO(model_path, task='detect')
     labels = model.names
 
-    # Parse resolution
     if resolution:
         resW, resH = map(int, resolution.lower().split('x'))
-        resize = True 
+        resize = True
     else:
-        resW, resH = 640, 480  # default resolution
         resize = False
-        
 
-
-    # Determine source type
     if os.path.isdir(source_path):
         source_type = 'folder'
     elif os.path.isfile(source_path):
@@ -63,8 +55,8 @@ def run_detection(model_path, source_path, threshold=0.5, resolution=None, max_f
 
         for img_path in imgs_list:
             frame = cv2.imread(img_path)
-            processed = process_frame(model, frame, labels, threshold, resize, resW, resH)
-            processed_frames.append(processed)
+            processed, detected_classes = process_frame(model, frame, labels, threshold, resize, resW, resH)
+            processed_frames.append((processed, detected_classes))
     
     elif source_type in ['video', 'usb']:
         cap = cv2.VideoCapture(source_path if source_type == 'video' else usb_idx)
@@ -78,8 +70,8 @@ def run_detection(model_path, source_path, threshold=0.5, resolution=None, max_f
             if not ret:
                 break
 
-            processed = process_frame(model, frame, labels, threshold, resize, resW, resH)
-            processed_frames.append(processed)
+            processed, detected_classes = process_frame(model, frame, labels, threshold, resize, resW, resH)
+            processed_frames.append((processed, detected_classes))
 
             frame_count += 1
             if max_frames and frame_count >= max_frames:
@@ -93,7 +85,7 @@ def run_detection(model_path, source_path, threshold=0.5, resolution=None, max_f
 def process_frame(model, frame, labels, threshold=0.5, resize=False, resW=640, resH=480):
     """
     Processes a single frame with YOLOv8 model and draws detections.
-    Returns the processed frame.
+    Returns: (processed_frame, detected_classes)
     """
     if resize:
         frame = cv2.resize(frame, (resW, resH))
@@ -101,7 +93,7 @@ def process_frame(model, frame, labels, threshold=0.5, resize=False, resW=640, r
     results = model(frame, verbose=False)
     detections = results[0].boxes
 
-    object_count = 0
+    detected_classes = []
 
     for i in range(len(detections)):
         xyxy = detections[i].xyxy.cpu().numpy().squeeze().astype(int)
@@ -123,6 +115,6 @@ def process_frame(model, frame, labels, threshold=0.5, resize=False, resW=640, r
             cv2.putText(frame, label, (xmin, label_ymin - 7),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
 
-            object_count += 1
+            detected_classes.append(classname)
 
-    return frame
+    return frame, detected_classes
