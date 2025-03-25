@@ -34,17 +34,11 @@ def run_inference(frame):
         classidx = int(detections[i].cls.item())
         classname_raw = labels[classidx]
 
-        # Group healthy types
-        if classname_raw in ["healthy (fruit)", "healthy (leaf)"]:
-            classname = "healthy"
-        else:
-            classname = classname_raw
-
         if conf > 0.5:
             object_count += 1
-            detected_classes.append(classname)
+            detected_classes.append(classname_raw)
             color = bbox_colors[classidx % 10]
-            label = f'{classname}: {int(conf*100)}%'
+            label = f'{classname_raw}: {int(conf*100)}%'
             cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), color, 2)
             cv2.putText(frame, label, (xmin, ymin - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
@@ -76,5 +70,6 @@ elif mode == "Use Webcam":
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             processed_frame, object_count, detected_classes = run_inference(frame)
             frame_window.image(processed_frame, channels="RGB")
+            st.write("Detected classes:", detected_classes)
         
         cap.release()
