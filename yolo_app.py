@@ -4,9 +4,13 @@ import cv2
 from yolo_detect import run_detection
 from PIL import Image
 import numpy as np
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(BASE_DIR, 'my_model.pt')
+
 
 # Load model + image
-model_path = 'my_model.pt'
 uploaded_image = st.file_uploader("Upload an image", type=['jpg','jpeg','png'])
 
 if uploaded_image is not None:
