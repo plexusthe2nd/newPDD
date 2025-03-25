@@ -6,7 +6,7 @@ from PIL import Image
 import numpy as np
 
 # Load model + image
-model_path = 'runs/detect/train/weights/best.pt'
+model_path = 'my_model.pt'
 uploaded_image = st.file_uploader("Upload an image", type=['jpg','jpeg','png'])
 
 if uploaded_image is not None:
