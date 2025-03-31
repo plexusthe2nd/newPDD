@@ -63,14 +63,23 @@ if captured_image is not None:
 class YOLOProcessor(VideoProcessorBase):
     def recv(self, frame: av.VideoFrame) -> av.VideoFrame:
         img = frame.to_ndarray(format="bgr24")
-        
+
+        # Resize frame for faster processing
+        img_resized = cv2.resize(img, (640, 640))
+
+        # Save temp frame
         temp_path = 'temp_frame.jpg'
-        cv2.imwrite(temp_path, img)
-        
+        cv2.imwrite(temp_path, img_resized)
+
+        # Run detection
         results = run_detection(model_path, temp_path, threshold=0.5)
         processed_frame, _ = results[0]
-        
+
         return av.VideoFrame.from_ndarray(processed_frame, format="bgr24")
 
 st.write("## Real-time Object Detection (PC & Mobile)")
-webrtc_streamer(key="yolo-stream", video_processor_factory=YOLOProcessor)
+webrtc_streamer(
+    key="yolo-stream",
+    video_processor_factory=YOLOProcessor,
+    async_processing=False  # Ensures smoother real-time detection
+)
