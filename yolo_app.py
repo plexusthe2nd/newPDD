@@ -86,15 +86,14 @@ elif page == "Detection":
     webrtc_streamer(key="yolo-stream", video_processor_factory=YOLOProcessor, async_processing=False)
 
 # --- ABOUT PAGE ---
-# --- ABOUT PAGE ---
-# --- ABOUT PAGE ---
 elif page == "About":
     st.title(" About Us")
 
     # Team Image
     try:
-        team_img = Image.open("baho kayg butete.jpg")
-        st.image("baho kayg butete.jpg", use_column_width=True)
+        image_path = os.path.join(BASE_DIR, "this is us.jpg")  # Make sure it's in the same folder
+        team_img = Image.open(image_path)
+        st.image(team_img, use_column_width=True)
     except Exception as e:
         st.warning(f"Team image not found. Error: {e}")
 
@@ -134,6 +133,3 @@ elif page == "About":
         "<p style='text-align: center; font-size: 14px; color: gray;'>© 2025 RIM17A. All rights reserved.</p>",
         unsafe_allow_html=True
     )
-
-
-
