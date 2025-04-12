@@ -44,7 +44,8 @@ elif page == "Detection":
         if "anthracnose leaf" in [cls.lower() for cls in detected_classes]:
             st.subheader("🔍 Remedies for Anthracnose:")
             st.markdown("""
-            - **Fungicide Spray**: Use copper-based or systemic fungicides (e.g., Carbendazim).
+            - **Fungicide Spray**:Spray copper-based fungicides (e.g., Copper oxychloride, Bordeaux mixture) at the flowering stage.
+                                  Use systemic fungicides like Carbendazim, Thiophanate-methyl, or Azoxystrobin during fruit development.
             - **Pruning**: Trim infected branches to improve air circulation.
             - **Sanitation**: Clear fallen leaves/fruits to stop disease spread.
             """)
