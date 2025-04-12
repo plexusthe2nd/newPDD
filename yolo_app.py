@@ -94,7 +94,7 @@ elif page == "About":
 
     # Team Image
     try:
-        image_path = os.path.join(BASE_DIR, "this is us.jpg")
+        image_path = "this is us.jpg"
         team_img = Image.open(image_path)
         st.image(team_img, use_container_width=True)
     except:
