@@ -94,7 +94,7 @@ elif page == "About":
     # Team Image
     try:
         team_img = Image.open("this is us.jpg")
-        st.image(team_img, use_container_width=True)
+        st.image("this is us.jpg", use_column_width=True)
     except Exception as e:
         st.warning(f"Team image not found. Error: {e}")
 
