@@ -127,7 +127,9 @@ elif page == "About":
             line-height: 1.6;
         }
         </style>
+    """, unsafe_allow_html=True)
 
+    st.markdown("""
         <div class="info-row">
             <div class="info-card">
                 <div class="icon">📌</div>
