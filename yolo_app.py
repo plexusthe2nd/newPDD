@@ -118,7 +118,7 @@ elif page == "About":
     st.title(" About Us")
 
     try:
-        image_path = os.path.join(BASE_DIR, "this is us.jpg")
+        image_path = os.path.join(BASE_DIR, "baho kayg butete.jpg")
         team_img = Image.open(image_path)
         st.image(team_img, use_column_width=True)
     except Exception as e:
