@@ -40,7 +40,7 @@ if page == "Home":
 elif page == "Detection":
     st.title("🍃 Mango Leaf Detection")
 
-    st.header(" Upload an Image")
+    st.header("📄 Upload an Image")
     uploaded_image = st.file_uploader("Upload a mango leaf image", type=['jpg', 'jpeg', 'png'])
     if uploaded_image:
         img = Image.open(uploaded_image)
@@ -51,7 +51,7 @@ elif page == "Detection":
         st.image(processed_img, channels="BGR", caption="Detection Result")
 
         if detected_classes:
-            st.subheader(" Detected Classes:")
+            st.subheader("🧠 Detected Classes:")
             for c in sorted(set(detected_classes)):
                 st.markdown(f"- **{c}**")
         else:
@@ -86,50 +86,61 @@ elif page == "Detection":
     webrtc_streamer(key="yolo-stream", video_processor_factory=YOLOProcessor, async_processing=False)
 
 # --- ABOUT PAGE ---
-# --- ABOUT PAGE ---
 elif page == "About":
-    col1, col2, col3 = st.columns([0.2, 1, 0.2])
-    with col2:
-        st.image("this is us.jpg", use_column_width=True, caption="We Work for Farmers")
-
     st.markdown("""
         <style>
+        .hero {
+            background-image: url('this is us.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 380px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.75);
+            border-radius: 10px;
+            margin-bottom: 3em;
+        }
+        .hero h1 {
+            font-size: 3em;
+            font-weight: bold;
+        }
         .info-row {
             display: flex;
             justify-content: space-between;
-            flex-wrap: wrap;
             gap: 2em;
-            margin-top: 3em;
+            padding: 0 2em;
+            margin-top: 2em;
         }
         .info-card {
             flex: 1;
-            min-width: 250px;
-            background: #f9f9f9;
-            padding: 1.5em;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+            min-width: 240px;
             text-align: center;
         }
-        .icon {
+        .info-card .icon {
             font-size: 2em;
-            margin-bottom: 0.4em;
-            color: #2e7d32;
-        }
-        .green-title {
-            font-size: 1.3em;
-            font-weight: 600;
             color: #2e7d32;
             margin-bottom: 0.3em;
         }
+        .green-title {
+            color: #2e7d32;
+            font-weight: 700;
+            font-size: 1.3em;
+            margin-bottom: 0.4em;
+        }
         .para {
             font-size: 1.05em;
-            color: #555;
+            color: #aaa;
             line-height: 1.6;
         }
         </style>
-    """, unsafe_allow_html=True)
 
-    st.markdown("""
+        <div class="hero">
+            <h1>We Work for Farmers</h1>
+        </div>
+
         <div class="info-row">
             <div class="info-card">
                 <div class="icon">📌</div>
@@ -160,6 +171,3 @@ elif page == "About":
             © 2025 RIM17A. All rights reserved.
         </p>
     """, unsafe_allow_html=True)
-
-
-
