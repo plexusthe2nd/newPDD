@@ -41,6 +41,14 @@ elif page == "Detection":
     st.title("🎃 Mango Leaf Detection")
 
     def display_remedies(detected_classes):
+        if "anthracnose leaf" in [cls.lower() for cls in detected_classes]:
+            st.subheader("🔍 Remedies for Anthracnose:")
+            st.markdown("""
+            - **Fungicide Spray**: Use copper-based or systemic fungicides (e.g., Carbendazim).
+            - **Pruning**: Trim infected branches to improve air circulation.
+            - **Sanitation**: Clear fallen leaves/fruits to stop disease spread.
+            """)
+
         if "anthracnose" in [cls.lower() for cls in detected_classes]:
             st.subheader("🔍 Remedies for Anthracnose:")
             st.markdown("""
