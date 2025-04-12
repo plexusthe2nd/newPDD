@@ -88,53 +88,76 @@ elif page == "Detection":
 # --- ABOUT PAGE ---
 # --- ABOUT PAGE ---
 elif page == "About":
-    from PIL import Image
+    col1, col2, col3 = st.columns([0.2, 1, 0.2])
+    with col2:
+        st.image("this is us.jpg", use_column_width=True, caption="We Work for Farmers")
 
-    st.title(" About Us")
+    st.markdown("""
+        <style>
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2em;
+            margin-top: 3em;
+        }
+        .info-card {
+            flex: 1;
+            min-width: 250px;
+            background: #f9f9f9;
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+            text-align: center;
+        }
+        .icon {
+            font-size: 2em;
+            margin-bottom: 0.4em;
+            color: #2e7d32;
+        }
+        .green-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 0.3em;
+        }
+        .para {
+            font-size: 1.05em;
+            color: #555;
+            line-height: 1.6;
+        }
+        </style>
 
-    # Team Image
-    try:
-        image_path = "this is us.jpg"
-        team_img = Image.open(image_path)
-        st.image(team_img, use_container_width=True)
-    except:
-        st.warning("Team image not found. Make sure 'this is us.jpg' is in the /mnt/data folder.")
+        <div class="info-row">
+            <div class="info-card">
+                <div class="icon">📌</div>
+                <div class="green-title">What We Stand For</div>
+                <p class="para">
+                    We help farmers, students, and agriculture lovers detect mango leaf diseases early with computer vision.
+                </p>
+            </div>
 
-    st.markdown("##  What We Stand For")
-    st.markdown(
-        "We are dedicated to helping farmers, students, and agriculture enthusiasts detect mango leaf diseases early using computer vision."
-    )
+            <div class="info-card">
+                <div class="icon">🎯</div>
+                <div class="green-title">Our Mission</div>
+                <p class="para">
+                    Make AI-powered mango disease detection accessible and easy to use.
+                </p>
+            </div>
 
-    st.markdown("###  Our Mission")
-    st.markdown(
-        "We aim to make **AI-powered mango disease detection** accessible and easy to use for everyone — especially in rural areas."
-    )
+            <div class="info-card">
+                <div class="icon">📱</div>
+                <div class="green-title">Our Vision</div>
+                <p class="para">
+                    A future where farmers scan leaves with a phone and get real-time results.
+                </p>
+            </div>
+        </div>
 
-    st.markdown("###  Our Vision")
-    st.markdown(
-        "A future where **farmers can scan leaves with a phone** and get real-time results to prevent crop loss before it happens."
-    )
+        <p style='text-align: center; font-size: 14px; color: gray; margin-top: 4em;'>
+            © 2025 RIM17A. All rights reserved.
+        </p>
+    """, unsafe_allow_html=True)
 
-    st.markdown("###  Who We Are")
-    st.markdown(
-        "We're a team of senior high school students building this for our research project. Our goal is to make AI useful in the field."
-    )
-
-    st.markdown("###  Built With")
-    st.markdown(
-        """
-        -  Python  
-        -  YOLOv8 (Ultralytics)  
-        -  Streamlit  
-        -  OpenCV  
-        - 🖼 PIL (Image Handling)
-        """
-    )
-
-    st.markdown("---")
-    st.markdown(
-        "<p style='text-align: center; font-size: 14px; color: gray;'>© 2025 RIM17A. All rights reserved.</p>",
-        unsafe_allow_html=True
-    )
 
 
