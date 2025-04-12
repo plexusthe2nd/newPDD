@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(BASE_DIR, 'my_model.pt')
 
 # --- SIDEBAR NAVIGATION ---
-st.sidebar.title("🍃 Mango Health Scanner")
+st.sidebar.title("🎃 Mango Health Scanner")
 page = st.sidebar.radio("Go to", ["Home", "Detection", "About"])
 
 # --- HOME PAGE ---
@@ -38,7 +38,24 @@ if page == "Home":
 
 # --- DETECTION PAGE ---
 elif page == "Detection":
-    st.title("🍃 Mango Leaf Detection")
+    st.title("🎃 Mango Leaf Detection")
+
+    def display_remedies(detected_classes):
+        if "anthracnose" in [cls.lower() for cls in detected_classes]:
+            st.subheader("🔍 Remedies for Anthracnose:")
+            st.markdown("""
+            - **Fungicide Spray**: Use copper-based or systemic fungicides (e.g., Carbendazim).
+            - **Pruning**: Trim infected branches to improve air circulation.
+            - **Sanitation**: Clear fallen leaves/fruits to stop disease spread.
+            """)
+
+        if "powdery mildew" in [cls.lower() for cls in detected_classes]:
+            st.subheader("🍃 Remedies for Powdery Mildew:")
+            st.markdown("""
+            - **Sulfur-based Sprays**: Apply wettable sulfur early.
+            - **Neem Oil**: Natural antifungal solution (spray in morning).
+            - **Canopy Management**: Prune tree for better airflow and light.
+            """)
 
     st.header(" Upload an Image")
     uploaded_image = st.file_uploader("Upload a mango leaf image", type=['jpg', 'jpeg', 'png'])
@@ -54,6 +71,7 @@ elif page == "Detection":
             st.subheader(" Detected Classes:")
             for c in sorted(set(detected_classes)):
                 st.markdown(f"- **{c}**")
+            display_remedies(detected_classes)
         else:
             st.info("No mango leaf issue detected.")
 
@@ -71,6 +89,7 @@ elif page == "Detection":
             st.subheader("🧠 Detected Classes:")
             for c in sorted(set(detected_classes)):
                 st.markdown(f"- **{c}**")
+            display_remedies(detected_classes)
         else:
             st.info("No mango leaf issue detected.")
 
@@ -89,47 +108,33 @@ elif page == "Detection":
 elif page == "About":
     st.title(" About Us")
 
-    # Team Image
     try:
-        image_path = os.path.join(BASE_DIR, "this is us.jpg")  # Make sure it's in the same folder
+        image_path = os.path.join(BASE_DIR, "this is us.jpg")
         team_img = Image.open(image_path)
         st.image(team_img, use_column_width=True)
     except Exception as e:
         st.warning(f"Team image not found. Error: {e}")
 
     st.markdown("##  What We Stand For")
-    st.markdown(
-        "We are dedicated to helping farmers, students, and agriculture enthusiasts detect mango leaf diseases early using computer vision."
-    )
+    st.markdown("We are dedicated to helping farmers, students, and agriculture enthusiasts detect mango leaf diseases early using computer vision.")
 
     st.markdown("###  Our Mission")
-    st.markdown(
-        "We aim to make **AI-powered mango disease detection** accessible and easy to use for everyone — especially in rural areas."
-    )
+    st.markdown("We aim to make **AI-powered mango disease detection** accessible and easy to use for everyone — especially in rural areas.")
 
     st.markdown("###  Our Vision")
-    st.markdown(
-        "A future where **farmers can scan leaves with a phone** and get real-time results to prevent crop loss before it happens."
-    )
+    st.markdown("A future where **farmers can scan leaves with a phone** and get real-time results to prevent crop loss before it happens.")
 
     st.markdown("###  Who We Are")
-    st.markdown(
-        "We're a team of senior high school students building this for our research project. Our goal is to make AI useful in the field."
-    )
+    st.markdown("We're a team of senior high school students building this for our research project. Our goal is to make AI useful in the field.")
 
     st.markdown("###  Built With")
-    st.markdown(
-        """
-        -  Python  
-        -  YOLOv8 (Ultralytics)  
-        -  Streamlit  
-        -  OpenCV  
-        -  PIL (Image Handling)
-        """
-    )
+    st.markdown("""
+    -  Python  
+    -  YOLOv8 (Ultralytics)  
+    -  Streamlit  
+    -  OpenCV  
+    -  PIL (Image Handling)
+    """)
 
     st.markdown("---")
-    st.markdown(
-        "<p style='text-align: center; font-size: 14px; color: gray;'>© 2025 RIM17A. All rights reserved.</p>",
-        unsafe_allow_html=True
-    )
+    st.markdown("<p style='text-align: center; font-size: 14px; color: gray;'>© 2025 RIM17A. All rights reserved.</p>", unsafe_allow_html=True)
