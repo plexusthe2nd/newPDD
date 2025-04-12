@@ -40,7 +40,7 @@ if page == "Home":
 elif page == "Detection":
     st.title("🍃 Mango Leaf Detection")
 
-    st.header("📄 Upload an Image")
+    st.header(" Upload an Image")
     uploaded_image = st.file_uploader("Upload a mango leaf image", type=['jpg', 'jpeg', 'png'])
     if uploaded_image:
         img = Image.open(uploaded_image)
@@ -51,7 +51,7 @@ elif page == "Detection":
         st.image(processed_img, channels="BGR", caption="Detection Result")
 
         if detected_classes:
-            st.subheader("🧠 Detected Classes:")
+            st.subheader(" Detected Classes:")
             for c in sorted(set(detected_classes)):
                 st.markdown(f"- **{c}**")
         else:
@@ -86,88 +86,55 @@ elif page == "Detection":
     webrtc_streamer(key="yolo-stream", video_processor_factory=YOLOProcessor, async_processing=False)
 
 # --- ABOUT PAGE ---
+# --- ABOUT PAGE ---
 elif page == "About":
-    st.markdown("""
-        <style>
-        .hero {
-            background-image: url('this is us.jpg');
-            background-size: cover;
-            background-position: center;
-            height: 380px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.75);
-            border-radius: 10px;
-            margin-bottom: 3em;
-        }
-        .hero h1 {
-            font-size: 3em;
-            font-weight: bold;
-        }
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 2em;
-            padding: 0 2em;
-            margin-top: 2em;
-        }
-        .info-card {
-            flex: 1;
-            min-width: 240px;
-            text-align: center;
-        }
-        .info-card .icon {
-            font-size: 2em;
-            color: #2e7d32;
-            margin-bottom: 0.3em;
-        }
-        .green-title {
-            color: #2e7d32;
-            font-weight: 700;
-            font-size: 1.3em;
-            margin-bottom: 0.4em;
-        }
-        .para {
-            font-size: 1.05em;
-            color: #aaa;
-            line-height: 1.6;
-        }
-        </style>
+    from PIL import Image
 
-        <div class="hero">
-            <h1>We Work for Farmers</h1>
-        </div>
+    st.title(" About Us")
 
-        <div class="info-row">
-            <div class="info-card">
-                <div class="icon">📌</div>
-                <div class="green-title">What We Stand For</div>
-                <p class="para">
-                    We help farmers, students, and agriculture lovers detect mango leaf diseases early with computer vision.
-                </p>
-            </div>
+    # Team Image
+    try:
+        image_path = "this is us.jpg"
+        team_img = Image.open(image_path)
+        st.image(team_img, use_container_width=True)
+    except:
+        st.warning("Team image not found. Make sure 'this is us.jpg' is in the /mnt/data folder.")
 
-            <div class="info-card">
-                <div class="icon">🎯</div>
-                <div class="green-title">Our Mission</div>
-                <p class="para">
-                    Make AI-powered mango disease detection accessible and easy to use.
-                </p>
-            </div>
+    st.markdown("##  What We Stand For")
+    st.markdown(
+        "We are dedicated to helping farmers, students, and agriculture enthusiasts detect mango leaf diseases early using computer vision."
+    )
 
-            <div class="info-card">
-                <div class="icon">📱</div>
-                <div class="green-title">Our Vision</div>
-                <p class="para">
-                    A future where farmers scan leaves with a phone and get real-time results.
-                </p>
-            </div>
-        </div>
+    st.markdown("###  Our Mission")
+    st.markdown(
+        "We aim to make **AI-powered mango disease detection** accessible and easy to use for everyone — especially in rural areas."
+    )
 
-        <p style='text-align: center; font-size: 14px; color: gray; margin-top: 4em;'>
-            © 2025 RIM17A. All rights reserved.
-        </p>
-    """, unsafe_allow_html=True)
+    st.markdown("###  Our Vision")
+    st.markdown(
+        "A future where **farmers can scan leaves with a phone** and get real-time results to prevent crop loss before it happens."
+    )
+
+    st.markdown("###  Who We Are")
+    st.markdown(
+        "We're a team of senior high school students building this for our research project. Our goal is to make AI useful in the field."
+    )
+
+    st.markdown("###  Built With")
+    st.markdown(
+        """
+        -  Python  
+        -  YOLOv8 (Ultralytics)  
+        -  Streamlit  
+        -  OpenCV  
+        -  PIL (Image Handling)
+        """
+    )
+
+    st.markdown("---")
+    st.markdown(
+        "<p style='text-align: center; font-size: 14px; color: gray;'>© 2025 RIM17A. All rights reserved.</p>",
+        unsafe_allow_html=True
+    )
+
+
