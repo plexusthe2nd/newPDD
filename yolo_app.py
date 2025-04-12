@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(BASE_DIR, 'my_model.pt')
 
 # --- SIDEBAR NAVIGATION ---
-st.sidebar.title("🎃 Mango Health Scanner")
+st.sidebar.title(" Mango Health Scanner")
 page = st.sidebar.radio("Go to", ["Home", "Detection", "About"])
 
 # --- HOME PAGE ---
