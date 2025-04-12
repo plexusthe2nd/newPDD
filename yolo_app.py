@@ -38,7 +38,7 @@ if page == "Home":
 
 # --- DETECTION PAGE ---
 elif page == "Detection":
-    st.title("🎃 Mango Leaf Detection")
+    st.title(" Mango Leaf Detection")
 
     def display_remedies(detected_classes):
         if "anthracnose leaf" in [cls.lower() for cls in detected_classes]:
