@@ -87,18 +87,16 @@ elif page == "Detection":
 
 # --- ABOUT PAGE ---
 # --- ABOUT PAGE ---
+# --- ABOUT PAGE ---
 elif page == "About":
-    from PIL import Image
-
     st.title(" About Us")
 
     # Team Image
     try:
-        image_path = "this is us"
-        team_img = Image.open(image_path)
+        team_img = Image.open("this is us.jpg")
         st.image(team_img, use_container_width=True)
-    except:
-        st.warning("Team image not found. Make sure 'this is us.jpg' is in the /mnt/data folder.")
+    except Exception as e:
+        st.warning(f"Team image not found. Error: {e}")
 
     st.markdown("##  What We Stand For")
     st.markdown(
@@ -136,5 +134,6 @@ elif page == "About":
         "<p style='text-align: center; font-size: 14px; color: gray;'>© 2025 RIM17A. All rights reserved.</p>",
         unsafe_allow_html=True
     )
+
 
 
