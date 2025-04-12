@@ -10,24 +10,31 @@ from ultralytics import YOLO
 bbox_colors = [(164,120,87), (68,148,228), (93,97,209), (178,182,133), (88,159,106), 
               (96,202,231), (159,124,168), (169,162,241), (98,118,150), (172,176,184)]
 
-def run_detection(model_path, source_path, threshold=0.5, resolution=None, max_frames=None):
+def run_detection(model_path, source_input, threshold=0.5, resolution=None, max_frames=None):
     """
-    Run YOLOv8 object detection on image, video, or webcam source.
+    Run YOLOv8 object detection on image array, image/video path, folder, or webcam input.
     Returns list of tuples: (processed_frame, detected_classes)
     """
     if not os.path.exists(model_path):
         raise FileNotFoundError(f'Model not found at: {model_path}')
-    
+
     model = YOLO(model_path, task='detect')
     labels = model.names
+
+    # Handle direct NumPy image input
+    if isinstance(source_input, np.ndarray):
+        processed, detected_classes = process_frame(model, source_input, labels, threshold)
+        return [(processed, detected_classes)]
+
+    # Handle path input (image, folder, video, usb)
+    source_path = source_input
 
     if resolution:
         resW, resH = map(int, resolution.lower().split('x'))
         resize = True
     else:
-        resW, resH = None, None  # Provide fallback values
+        resW, resH = None, None
         resize = False
-
 
     if os.path.isdir(source_path):
         source_type = 'folder'
@@ -82,6 +89,7 @@ def run_detection(model_path, source_path, threshold=0.5, resolution=None, max_f
         cap.release()
 
     return processed_frames
+
 
 
 def process_frame(model, frame, labels, threshold=0.5, resize=False, resW=640, resH=480):
